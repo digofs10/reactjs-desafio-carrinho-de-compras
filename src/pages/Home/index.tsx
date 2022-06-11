@@ -31,15 +31,15 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     async function loadProducts() {
-      api.get("/products").then((response) => {
-        const productsList = response.data;
+      const response = await api.get("/products");
+      const products = response.data;
 
-        productsList.map((productItem: ProductFormatted) => {
-          productItem.priceFormatted = formatPrice(productItem.price);
-        });
+      const productList = products.map((product: ProductFormatted) => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }));
 
-        setProducts(productsList);
-      });
+      setProducts(productList);
     }
 
     loadProducts();

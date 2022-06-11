@@ -99,15 +99,18 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       }
 
       const updatedCart = [...cart];
+      const hasProduct = updatedCart.find(
+        (product) => product.id === productId
+      );
 
-      updatedCart.map((product) => {
-        if (product.id === productId) {
-          product.amount = amount;
-        }
-      });
+      if (hasProduct) {
+        hasProduct.amount = amount;
 
-      setCart(updatedCart);
-      localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
+        setCart(updatedCart);
+        localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
+      } else {
+        throw Error();
+      }
     } catch {
       toast.error("Erro na alteração de quantidade do produto");
     }

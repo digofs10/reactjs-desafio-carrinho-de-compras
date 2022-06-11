@@ -36,15 +36,11 @@ const Cart = (): JSX.Element => {
   );
 
   function handleProductIncrement(product: Product) {
-    product.amount += 1;
-
-    updateProductAmount({ productId: product.id, amount: product.amount });
+    updateProductAmount({ productId: product.id, amount: product.amount + 1 });
   }
 
   function handleProductDecrement(product: Product) {
-    product.amount -= 1;
-
-    updateProductAmount({ productId: product.id, amount: product.amount });
+    updateProductAmount({ productId: product.id, amount: product.amount - 1 });
   }
 
   function handleRemoveProduct(productId: number) {
